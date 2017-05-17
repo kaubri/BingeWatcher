@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="api_auth_url">https://anilist.co/api/auth/access_token</string>
+    <string name="api_search_url">https://anilist.co/api/anime/search/</string>
+    <string name="client_id">otakubinge-v6l5z</string>
+    <string name="client_secret">5EoHuxSXqwH9B7KYNKOeHxz</string>
+</resources>

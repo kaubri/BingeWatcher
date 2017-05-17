@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BingeWatcher</string>
+    <string name="anime_search">Search anime...</string>
 </resources>
