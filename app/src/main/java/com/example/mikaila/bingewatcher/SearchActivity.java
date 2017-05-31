@@ -5,6 +5,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,12 +23,18 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
     // Create api object to interact with AniList api
-    //AniListAPI api;
     SearchAnime searchAnime;
+
+    // To display search results
+    RecyclerView recyclerView;
+    SearchAdapter adapter;
+    RecyclerView.LayoutManager layoutManager;
+    List<Anime> anime_results_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +46,11 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setLogo(R.mipmap.ic_launcher);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        //api = new AniListAPI();
+        // Prepare recycler view for showing search results
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
         searchAnime = new SearchAnime(this);
     }
 
@@ -57,10 +69,16 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (query != null) {
-                    Toast.makeText(getApplicationContext(), "Searching for " + query + "...", Toast.LENGTH_LONG).show();
+                    // Clear search results
+                    recyclerView.removeAllViewsInLayout();
 
                     try {
-                        searchAnime.search(query);
+                        // Search for anime based on query
+                        List<Anime> anime_results_list = searchAnime.search(query);
+
+                        // Show search results
+                        adapter = new SearchAdapter(getApplicationContext(), anime_results_list);
+                        recyclerView.setAdapter(adapter);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -76,5 +94,4 @@ public class SearchActivity extends AppCompatActivity {
 
         return true;
     }
-
 }
