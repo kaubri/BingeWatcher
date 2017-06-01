@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">BingeWatcher</string>
-    <string name="anime_search">Search anime...</string>
-    <string name="runtime">Runtime</string>
-    <string name="episodes">Episodes</string>
-    <string name="total_binge_time">Total binge time:</string>
-    <string name="completion_date">Completion date:</string>
+    <string name="duration">Duration: </string>
+    <string name="episodes">Episodes: </string>
+    <string name="total_binge_time">Total binge time: </string>
+    <string name="completion_date">Completion date: </string>
     <string name="calculate">Calculate</string>
     <string name="episode_a">episodes a</string>
     <string name="starting_date">Starting date: </string>
     <string name="alert_low_free_time"> Not enough free time.</string>
     <string name="no_episodes_alert">Add number of episodes</string>
+    <string name="raw_binge_time">Raw Binge Time:</string>
     <string-array name="time_frequency">
         <item>Day</item>
         <item>Week</item>

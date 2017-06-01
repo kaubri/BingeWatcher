@@ -1,6 +1,7 @@
 package com.example.mikaila.bingewatcher;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHolder>{
 
+    private Context context; // may not need
     private List<Anime> animeList;
     private LayoutInflater layoutInflater;
 
@@ -26,15 +28,27 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View view = layoutInflater.inflate(R.layout.search_result, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
+
         return holder;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Anime current = animeList.get(position);
+        final Anime current = animeList.get(position);
         holder.setData(current, position);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(context, "this is anime: " + current.get_title_english(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(context, ResultActivity.class);
+                intent.putExtra("anime", current);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
