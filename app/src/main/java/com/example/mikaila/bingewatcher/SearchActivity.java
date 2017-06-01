@@ -36,6 +36,8 @@ public class SearchActivity extends AppCompatActivity {
 
         // Prepare recycler view for showing search results
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setItemViewCacheSize(20);
+        recyclerView.setDrawingCacheEnabled(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -65,7 +67,7 @@ public class SearchActivity extends AppCompatActivity {
                         List<Anime> anime_results_list = searchAnime.search(query);
 
                         // Show search results
-                        adapter = new SearchAdapter(getApplicationContext(), anime_results_list);
+                        adapter = new SearchAdapter(SearchActivity.this, anime_results_list);
                         recyclerView.setAdapter(adapter);
                     } catch (JSONException e) {
                         e.printStackTrace();

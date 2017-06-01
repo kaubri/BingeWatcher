@@ -2,6 +2,9 @@ package com.example.mikaila.bingewatcher;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -43,7 +50,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(context, "this is anime: " + current.get_title_english(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(context, ResultActivity.class);
                 intent.putExtra("anime", current);
                 context.startActivity(intent);
@@ -71,9 +77,35 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
         }
 
         public void setData(Anime current, int position) {
-            this.title.setText(current.get_title_english());
-            this.episodes.setText("Episodes: " + current.get_total_episodes());
-            this.duration.setText("Duration: " + current.get_duration() + " mins");
+            new LoadImageFromUrl(img).execute(current.get_image_url());
+
+            title.setText(current.get_title_english());
+            episodes.setText("Episodes: " + current.get_total_episodes());
+            duration.setText("Duration: " + current.get_duration() + " mins");
+        }
+    }
+
+    private class urlToImageView extends AsyncTask<String,Void,Bitmap> {
+        ImageView imageView;
+
+        public urlToImageView(ImageView imageView){
+            this.imageView = imageView;
+        }
+
+        protected Bitmap doInBackground(String...urls){
+            String urlOfImage = urls[0];
+            Bitmap logo = null;
+            try{
+                InputStream is = new URL(urlOfImage).openStream();
+                logo = BitmapFactory.decodeStream(is);
+            }catch(Exception e){ // Catch the download exception
+                e.printStackTrace();
+            }
+            return logo;
+        }
+
+        protected void onPostExecute(Bitmap result){
+            imageView.setImageBitmap(result);
         }
     }
 }

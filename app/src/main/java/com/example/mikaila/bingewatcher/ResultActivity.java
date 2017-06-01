@@ -23,11 +23,13 @@ public class ResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Anime anime = (Anime) intent.getSerializableExtra("anime");
 
+        img = (ImageView) findViewById(R.id.result_image_view);
         title = (TextView) findViewById(R.id.result_title_text_view);
         episodes = (TextView) findViewById(R.id.results_episodes_text_view);
         duration = (TextView) findViewById(R.id.result_runtime_text_view);
         description = (TextView) findViewById(R.id.result_synopsis_text_view);
 
+        new LoadImageFromUrl(img).execute(anime.get_image_url());
         title.setText(anime.get_title_english());
         episodes.setText(anime.get_total_episodes());
         duration.setText(anime.get_duration() + " mins");
