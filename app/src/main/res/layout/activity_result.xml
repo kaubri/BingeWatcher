@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/result_image_view"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/result_synopsis_text_view"
+        app:layout_constraintTop_toTopOf="@+id/result_title_text_view"
+        android:layout_marginTop="0dp"/>
+
+    <TextView
+        android:id="@+id/result_title_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:maxEms="15"
+        android:textSize="@dimen/result_title_text_size"
+        app:layout_constraintLeft_toLeftOf="@+id/result_synopsis_text_view"
+        app:layout_constraintRight_toLeftOf="@+id/result_image_view"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Battle Programmer Shirase"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/episodes"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/result_title_text_view"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/duration"
+        app:layout_constraintLeft_toLeftOf="@+id/textView2"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/result_image_view"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/results_episodes_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="26dp"
+        app:layout_constraintLeft_toRightOf="@+id/textView2"
+        tools:text="50"
+        app:layout_constraintTop_toTopOf="@+id/textView2"
+        android:layout_marginStart="26dp"/>
+
+    <TextView
+        android:id="@+id/result_runtime_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/results_episodes_text_view"
+        tools:text="50mins"
+        app:layout_constraintTop_toTopOf="@+id/textView3"
+        />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/completion_date"
+        android:textSize="@dimen/result_binge_time_and_date_text_size"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/textView7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/raw_binge_time"
+        android:textSize="@dimen/result_binge_time_and_date_text_size"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/result_synopsis_text_view"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"/>
+
+    <TextView
+        android:id="@+id/result_completion_date_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="12/05/2016"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
+        app:layout_constraintLeft_toLeftOf="@+id/result_raw_binge_time_text_view"/>
+
+    <TextView
+        android:id="@+id/result_raw_binge_time_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="78dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="78dp"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
+        app:layout_constraintLeft_toRightOf="@+id/textView7"
+        app:layout_constraintRight_toRightOf="@+id/result_synopsis_text_view"
+        tools:text="2days 5hrs 3mins"
+        android:layout_marginEnd="8dp"/>
+
+    <TextView
+        android:id="@+id/result_synopsis_text_view"
+        android:layout_width="328dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:isScrollContainer="false"
+        android:scrollbars="vertical"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result_image_view"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="Naruto (ナルト?) is a Japanese manga series written and illustrated by Masashi Kishimoto. It tells the story of Naruto Uzumaki, an adolescent ninja who searches for recognition and dreams of becoming the Hokage, the leader of his village. The story divided into two parts, the first set in Naruto's preteen years, and the second in his teens. The series is based on two one-shot manga by Kishimoto. The first one, titled Karakuri, released in 1995 by Shueisha, earned Kishimoto an honorable mention in Shueisha's monthly Hop Step Award in 1996. The second one, titled Naruto, published in the summer 1997 issue of Akamaru Jump.  Naruto was serialized in Shueisha's Weekly Shōnen Jump magazine from September 21, 1999, to November 10, 2014. Seventy-two tankōbon volumes were released. It currently is the third best-selling manga series in history, selling more than 220 million copies worldwide. The manga later adapted into a television anime produced by Studio Pierrot and Aniplex. It premiered across Japan on the terrestrial TV Tokyo and other TX Network stations on October 3, 2002, and ended on February 8, 2007, with 220 episodes. The English adaptation of the series premiered on Cartoon Network's programming block named Toonami on September 10, 2005, and concluded on January 31, 2009. Naruto: Shippuden, a sequel to the original series, aired from February 15, 2007, to March 23, 2017, with 500 episodes. The English adaptation was broadcast on Disney XD from October 28, 2009, to November 5, 2011, and on Adult Swim's Toonami block in January 2014. Besides the anime series, Studio Pierrot has developed eleven movies and several original video animations (OVAs). Other types of merchandise include light novels, video games, and trading cards developed by several companies.  "/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView7">
+
+        <EditText
+            android:id="@+id/result_number_of_episodes_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:ems="3"
+            android:inputType="number"
+            android:maxLength="3"
+            android:text="1"
+            android:typeface="monospace"
+            app:layout_constraintBottom_toTopOf="@+id/textView6"
+            app:layout_constraintLeft_toLeftOf="@+id/textView6"
+            tools:text="100"/>
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="23dp"
+            android:layout_marginStart="23dp"
+            android:text="@string/episode_a"
+            app:layout_constraintBaseline_toBaselineOf="@+id/result_number_of_episodes_edit_text"
+            app:layout_constraintLeft_toRightOf="@+id/result_number_of_episodes_edit_text"/>
+
+        <Spinner
+            android:id="@+id/result_frequency_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="29dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintLeft_toRightOf="@+id/textView10"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            app:layout_constraintVertical_bias="0.6"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
