@@ -3,4 +3,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">8dp</dimen>
     <dimen name="activity_vertical_margin">8dp</dimen>
+    <dimen name="result_image">100dp</dimen>
+    <dimen name="result_title_text_size">20sp</dimen>
+    <dimen name="result_binge_time_and_date_text_size">15sp</dimen>
 </resources>

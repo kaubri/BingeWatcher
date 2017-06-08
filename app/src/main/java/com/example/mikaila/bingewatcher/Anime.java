@@ -1,10 +1,12 @@
 package com.example.mikaila.bingewatcher;
 
+import java.io.Serializable;
+
 /**
  * Created by Mikaila on 4/27/2017.
  */
 
-public class Anime {
+public class Anime implements Serializable{
     String title_romaji;
     String title_english;
     String description;
