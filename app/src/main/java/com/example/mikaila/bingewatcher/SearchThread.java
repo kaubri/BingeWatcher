@@ -20,17 +20,17 @@ public class SearchThread implements Runnable {
 
     @Override
     public void run() {
-        try {
-            WikipediaSeriesGrabber grabber = new WikipediaSeriesGrabber(mSeriesQuery);
-            mNumberOfEpisodes=grabber.getNumberOfEpisodes();
-            mTitle= grabber.getTitle();
-            mOnInformationRecievedListener.onInformationRecieved(mNumberOfEpisodes, mTitle,  mSynopsis);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            WikipediaSeriesGrabber grabber = new WikipediaSeriesGrabber(mSeriesQuery);
+//            mNumberOfEpisodes=grabber.getNumberOfEpisodes();
+//            mTitle= grabber.getTitle();
+//            mOnInformationRecievedListener.onInformationRecieved(mNumberOfEpisodes, mTitle,  mSynopsis);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
     private OnInformationRecievedListener mOnInformationRecievedListener;
 
