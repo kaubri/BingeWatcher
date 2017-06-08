@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -22,11 +23,18 @@ import java.util.Date;
 public class ResultActivity extends AppCompatActivity {
     public static final String TAG="ResultActivity";
 
+import android.widget.ImageView;
+import android.widget.TextView;
+
+public class ResultActivity extends AppCompatActivity {
+
+
     private ImageView img;
     private TextView title;
     private TextView episodes;
     private TextView duration;
     private TextView description;
+
     private TextView rawBingeTimeTextView;
     private TextView completionDateTextView;
     private Spinner frequencySpinner;
@@ -35,6 +43,8 @@ public class ResultActivity extends AppCompatActivity {
     private Anime mAnime;
     private int mDuration;
     private int mNumberOfEpisodes;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,5 +113,6 @@ public class ResultActivity extends AppCompatActivity {
         Date completionDate= TimeCalculator.getFrequencyEndDate(ResultActivity.this.mAnime, new Date(), frequency, mNumberOfEpisodes);
 
         completionDateTextView.setText(TimeUtility.converDateToFormatedString(completionDate));
+
     }
 }

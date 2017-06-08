@@ -11,6 +11,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginEnd="8dp"
+
         android:layout_marginStart="8dp"
         app:srcCompat="@mipmap/ic_launcher"
         android:layout_marginRight="8dp"
@@ -34,6 +35,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Battle Programmer Shirase"/>
 
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -43,8 +45,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
+
         android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="@+id/result_title_text_view"/>
+
 
     <TextView
         android:id="@+id/textView3"
@@ -52,9 +56,11 @@
         android:layout_height="wrap_content"
         android:text="@string/duration"
         app:layout_constraintLeft_toLeftOf="@+id/textView2"
+
         android:layout_marginLeft="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/result_image_view"
         android:layout_marginBottom="8dp"/>
+
 
     <TextView
         android:id="@+id/results_episodes_text_view"
@@ -79,6 +85,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="@string/completion_date"
         android:textSize="@dimen/result_binge_time_and_date_text_size"
         android:layout_marginLeft="0dp"
@@ -86,16 +93,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="16dp"/>
 
+
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="@string/raw_binge_time"
         android:textSize="@dimen/result_binge_time_and_date_text_size"
         android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="@+id/result_synopsis_text_view"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/textView6"/>
+
 
     <TextView
         android:id="@+id/result_completion_date_text_view"
@@ -109,15 +119,19 @@
         android:id="@+id/result_raw_binge_time_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_marginLeft="78dp"
+
         android:layout_marginRight="8dp"
         android:layout_marginStart="78dp"
         android:text="TextView"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
         app:layout_constraintLeft_toRightOf="@+id/textView7"
         app:layout_constraintRight_toRightOf="@+id/result_synopsis_text_view"
+
         tools:text="2days 5hrs 3mins"
         android:layout_marginEnd="8dp"/>
+
 
     <TextView
         android:id="@+id/result_synopsis_text_view"
@@ -193,5 +207,6 @@
             app:layout_constraintVertical_bias="0.6"/>
 
     </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>
