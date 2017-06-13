@@ -1,5 +1,6 @@
 package com.example.mikaila.bingewatcher;
 
+import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -63,12 +65,20 @@ public class SearchActivity extends AppCompatActivity {
                     recyclerView.removeAllViewsInLayout();
 
                     try {
-                        // Search for anime based on query
-                        List<Anime> anime_results_list = searchAnime.search(query);
+                        // Only perform search if device has internet access
+                        ConnectivityManager cm = (ConnectivityManager) getSystemService(SearchActivity.this.CONNECTIVITY_SERVICE);
 
-                        // Show search results
-                        adapter = new SearchAdapter(SearchActivity.this, anime_results_list);
-                        recyclerView.setAdapter(adapter);
+                        if (cm.getActiveNetworkInfo() != null) {
+                            // Search for anime based on query
+                            List<Anime> anime_results_list = searchAnime.search(query);
+
+                            // Show search results
+                            adapter = new SearchAdapter(SearchActivity.this, anime_results_list);
+                            recyclerView.setAdapter(adapter);
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "Make sure you're connected to the internet!", Toast.LENGTH_LONG).show();
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
