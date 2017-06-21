@@ -1,4 +1,4 @@
-package com.example.mikaila.bingewatcher;
+package com.example.mikaila.otakubinge;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

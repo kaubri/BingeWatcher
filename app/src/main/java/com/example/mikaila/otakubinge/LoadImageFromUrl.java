@@ -1,4 +1,4 @@
-package com.example.mikaila.bingewatcher;
+package com.example.mikaila.otakubinge;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

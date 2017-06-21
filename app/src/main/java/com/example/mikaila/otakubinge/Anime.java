@@ -1,4 +1,4 @@
-package com.example.mikaila.bingewatcher;
+package com.example.mikaila.otakubinge;
 
 import java.io.Serializable;
 
