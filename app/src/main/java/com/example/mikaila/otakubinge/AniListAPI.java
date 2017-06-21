@@ -10,7 +10,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by Mikaila on 4/15/2017.
+ * AniListAPI handles generating and renewing access tokens, performing anime searches and
+ * returning search results for SearchAnime class.
+ *
+ * @author Mikaila Smith
  */
 
 public class AniListAPI {
