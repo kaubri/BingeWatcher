@@ -1,12 +1,10 @@
-package com.example.mikaila.bingewatcher;
+package com.example.mikaila.otakubinge;
 
 import android.content.Context;
-import android.hardware.ConsumerIrManager;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 
 /**
  * Created by dwilder1181 on 4/12/2017.

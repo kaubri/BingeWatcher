@@ -1,18 +1,13 @@
-package com.example.mikaila.bingewatcher;
+package com.example.mikaila.otakubinge;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import static android.R.attr.id;
 
 /**
  * Created by Mikaila on 4/15/2017.

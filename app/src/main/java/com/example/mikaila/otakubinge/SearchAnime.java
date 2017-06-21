@@ -1,7 +1,6 @@
-package com.example.mikaila.bingewatcher;
+package com.example.mikaila.otakubinge;
 
 import android.content.Context;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;

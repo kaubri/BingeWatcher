@@ -1,4 +1,4 @@
-package com.example.mikaila.bingewatcher;
+package com.example.mikaila.otakubinge;
 
 import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
