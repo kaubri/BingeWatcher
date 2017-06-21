@@ -33,7 +33,7 @@ public class SearchActivity extends AppCompatActivity {
 
         // Enable logo to show in action bar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setLogo(R.mipmap.ic_otakubinge_tv);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         // Prepare recycler view for showing search results

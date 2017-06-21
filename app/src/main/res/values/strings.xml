@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BingeWatcher</string>
+    <string name="app_name">OtakuBinge</string>
     <string name="duration">Duration: </string>
     <string name="episodes">Episodes: </string>
     <string name="total_binge_time">Total binge time: </string>
