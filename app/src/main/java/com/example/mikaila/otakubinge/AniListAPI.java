@@ -14,17 +14,36 @@ import java.net.URL;
  */
 
 public class AniListAPI {
-    private String access_token = null;
-    private String token_expires = null;
+    private String accessToken = null;
+    private String tokenExpiration = null;
 
+    /**
+     * Getter to retrieve access token
+     *
+     * @return Access token
+     */
     public String getAccessToken() {
-        return access_token;
+        return accessToken;
     }
 
+    /**
+     * Getter to retrieve token expiration time/date
+     *
+     * @return Token expiration time/date
+     */
     public String getTokenExpires() {
-        return token_expires;
+        return tokenExpiration;
     }
 
+    /**
+     * Generates an access token (valid for 1 hour) for user by authenticating with application's
+     * client id and secret.
+     *
+     * @param url URL to request access token for AniList API
+     * @param id Client ID
+     * @param secret Client secret
+     * @return void
+     */
     public void generateAccessToken(String url, String id, String secret) {
         String token = null;
         try {
@@ -35,13 +54,20 @@ public class AniListAPI {
         }
 
         // Parse return string to get access token and its time of expiration in seconds
-        access_token = token.split(":")[1].split(",")[0];
-        access_token = access_token.substring(1, access_token.length()-1);
+        accessToken = token.split(":")[1].split(",")[0];
+        accessToken = accessToken.substring(1, accessToken.length()-1);
 
-        token_expires = token.split(":")[4];
-        token_expires = token_expires.substring(0, token_expires.length()-1);
+        tokenExpiration = token.split(":")[4];
+        tokenExpiration = tokenExpiration.substring(0, tokenExpiration.length()-1);
     }
 
+    /**
+     * Performs background search for anime
+     *
+     * @param url URL to search anime via AniList API
+     * @param query User input search query
+     * @return Anime search results as a string in JSON format
+     */
     public String searchAnime(String url, String query) {
         String result = null;
         try {
@@ -54,7 +80,19 @@ public class AniListAPI {
         return result;
     }
 
+    /**
+     * Makes a POST api call to request a new access token for authentication. It
+     * performs this task in the background as an AsyncTask.
+     *
+     * @author Mikaila Smith
+     */
     private class RenewAccessToken extends AsyncTask<String, Void, String> {
+        /**
+         * Requests a new access token using client id and secret for authentication
+         *
+         * @param params URL to authenticate, client id, and client secret
+         * @return New access token
+         */
         @Override
         protected String doInBackground(String... params) {
             String line;
@@ -86,22 +124,31 @@ public class AniListAPI {
         }
     }
 
+    /**
+     * Makes a GET api call to perform a search result for matching anime.
+     *
+     * @author Mikaila Smith
+     */
     private class GetSearchResult extends AsyncTask<String, Void, String> {
+        /**
+         * Performs background search for anime
+         *
+         * @param params URL to search anime via AniList API and user input query
+         * @return Anime search results as a string in JSON format
+         */
         @Override
         protected String doInBackground(String... params) {
             String data = "";
             String result = "";
 
             try {
-                URL url = new URL(params[0] + params[1] + "?access_token=" + access_token);
+                URL url = new URL(params[0] + params[1] + "?access_token=" + accessToken);
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                //conn.setDoOutput(true);
                 conn.setRequestMethod("GET");
                 conn.connect();
 
                 // Read the input stream into a String
-
                 InputStream is = conn.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 
