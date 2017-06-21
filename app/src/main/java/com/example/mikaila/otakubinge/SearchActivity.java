@@ -24,7 +24,9 @@ public class SearchActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     SearchAdapter adapter;
     RecyclerView.LayoutManager layoutManager;
-    List<Anime> anime_results_list;
+
+    // Search results - list of animes
+    List<Anime> animeResultsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +70,12 @@ public class SearchActivity extends AppCompatActivity {
                         // Only perform search if device has internet access
                         ConnectivityManager cm = (ConnectivityManager) getSystemService(SearchActivity.this.CONNECTIVITY_SERVICE);
 
-                        if (cm.getActiveNetworkInfo() != null) {
+                        if (cm.getActiveNetworkInfo() != null) { // If user has an internet connection
                             // Search for anime based on query
-                            List<Anime> anime_results_list = searchAnime.search(query);
+                            animeResultsList = searchAnime.search(query);
 
                             // Show search results
-                            adapter = new SearchAdapter(SearchActivity.this, anime_results_list);
+                            adapter = new SearchAdapter(SearchActivity.this, animeResultsList);
                             recyclerView.setAdapter(adapter);
                         }
                         else {
