@@ -17,7 +17,9 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * Created by Mikaila on 5/31/2017.
+ * SearchAdapter populates the RecyclerView with anime search results
+ *
+ * @author Mikaila Smith
  */
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHolder>{
@@ -80,30 +82,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
             title.setText(current.get_title_english());
             episodes.setText("Episodes: " + current.get_total_episodes());
             duration.setText("Duration: " + current.get_duration() + " mins");
-        }
-    }
-
-    private class urlToImageView extends AsyncTask<String,Void,Bitmap> {
-        ImageView imageView;
-
-        public urlToImageView(ImageView imageView){
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String...urls){
-            String urlOfImage = urls[0];
-            Bitmap logo = null;
-            try{
-                InputStream is = new URL(urlOfImage).openStream();
-                logo = BitmapFactory.decodeStream(is);
-            }catch(Exception e){ // Catch the download exception
-                e.printStackTrace();
-            }
-            return logo;
-        }
-
-        protected void onPostExecute(Bitmap result){
-            imageView.setImageBitmap(result);
         }
     }
 }

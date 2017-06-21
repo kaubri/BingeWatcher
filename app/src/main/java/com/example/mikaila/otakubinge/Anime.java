@@ -3,7 +3,9 @@ package com.example.mikaila.otakubinge;
 import java.io.Serializable;
 
 /**
- * Created by Mikaila on 4/27/2017.
+ * Anime contains pertinent show information returned from AniListAPI search result
+ *
+ * @author Mikaila Smith
  */
 
 public class Anime implements Serializable{
