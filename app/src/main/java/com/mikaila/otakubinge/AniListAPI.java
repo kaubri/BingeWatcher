@@ -51,13 +51,12 @@ public class AniListAPI {
                 clientInfo.setClientSecret(dataSnapshot.getValue(ClientInfo.class).getClientSecret());
                 clientInfo.setAccessToken(dataSnapshot.getValue(ClientInfo.class).getAccessToken());
                 clientInfo.setTokenExpires(dataSnapshot.getValue(ClientInfo.class).getTokenExpires());
-                Log.d(TAG, "Updating client information");
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
+                Log.e(TAG, "Failed to read value.", error.toException());
             }
         });
     }

@@ -71,7 +71,7 @@ public class SearchAnime {
             JSONObject jsonObj  = array.getJSONObject(i);
             anime.set_title_romaji(jsonObj.getString("title_romaji"));
             anime.set_title_english(jsonObj.getString("title_english"));
-            anime.set_description(jsonObj.getString("description"));
+            anime.set_description(jsonObj.getString("description").replaceAll("<br>", ""));
             anime.set_image_url(jsonObj.getString("image_url_lge"));
             anime.set_total_episodes(jsonObj.getString("total_episodes"));
             anime.set_duration(jsonObj.getString("duration"));
