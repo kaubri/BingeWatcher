@@ -1,4 +1,4 @@
-package com.example.mikaila.otakubinge;
+package com.mikaila.otakubinge;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.mikaila.otakubinge.R;
 
 import java.util.Date;
 
@@ -31,14 +33,10 @@ public class ResultActivity extends AppCompatActivity {
     private int mDuration;
     private int mNumberOfEpisodes;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-
-
 
         Intent intent = getIntent();
         mAnime = (Anime) intent.getSerializableExtra("anime");
@@ -77,14 +75,12 @@ public class ResultActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         completionDateTextView = (TextView) findViewById(R.id.result_completion_date_text_view);
         rawBingeTimeTextView = (TextView) findViewById(R.id.result_raw_binge_time_text_view);
-        rawBingeTimeTextView.setText(TimeUtility.minsToBiggestUnitString(mDuration*mNumberOfEpisodes));
+        rawBingeTimeTextView.setText(TimeCalculator.calculateRawBingeTime(mDuration*mNumberOfEpisodes));
         completionDateTextView = (TextView) findViewById(R.id.result_completion_date_text_view);
 
 
@@ -92,12 +88,8 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void caluclateCompletionDate() {
-
         mNumberOfEpisodes = Integer.valueOf(numOfEpisodesEditText.getText().toString());
-
         Date completionDate= TimeCalculator.getFrequencyEndDate(ResultActivity.this.mAnime, new Date(), frequency, mNumberOfEpisodes);
-
-        completionDateTextView.setText(TimeUtility.converDateToFormatedString(completionDate));
-
+        completionDateTextView.setText(TimeCalculator.converDateToFormatedString(completionDate));
     }
 }

@@ -1,6 +1,13 @@
-package com.example.mikaila.otakubinge;
+package com.mikaila.otakubinge;
 
 import android.os.AsyncTask;
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -9,45 +16,79 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static android.content.ContentValues.TAG;
+
 /**
+ * <h1>AniListAPI</h1>
  * AniListAPI handles generating and renewing access tokens, performing anime searches and
  * returning search results for SearchAnime class.
  *
- * @author Mikaila Smith
+ * @author  Mikaila Smith
+ * @version 1.0
+ * @since   2017-05-16
  */
-
 public class AniListAPI {
-    private String accessToken = null;
-    private String tokenExpiration = null;
+    public ClientInfo clientInfo = new ClientInfo();
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+
+    /**
+     * AniListAPI default constructor <br>
+     * Sets up database reference and read it into instance of ClientInfo
+     */
+    public AniListAPI() {
+        // Retrieves an instance of the database
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
+
+        // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                clientInfo.setClientID(dataSnapshot.getValue(ClientInfo.class).getClientID());
+                clientInfo.setClientSecret(dataSnapshot.getValue(ClientInfo.class).getClientSecret());
+                clientInfo.setAccessToken(dataSnapshot.getValue(ClientInfo.class).getAccessToken());
+                clientInfo.setTokenExpires(dataSnapshot.getValue(ClientInfo.class).getTokenExpires());
+                Log.d(TAG, "Updating client information");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+    }
 
     /**
      * Getter to retrieve access token
-     *
      * @return Access token
      */
     public String getAccessToken() {
-        return accessToken;
+        return clientInfo.getAccessToken();
     }
 
     /**
      * Getter to retrieve token expiration time/date
-     *
      * @return Token expiration time/date
      */
-    public String getTokenExpires() {
-        return tokenExpiration;
+    public Long getTokenExpires() {
+        return clientInfo.getTokenExpires();
     }
 
     /**
      * Generates an access token (valid for 1 hour) for user by authenticating with application's
      * client id and secret.
-     *
      * @param url URL to request access token for AniList API
      * @param id Client ID
      * @param secret Client secret
      * @return void
      */
     public void generateAccessToken(String url, String id, String secret) {
+        String accessToken;
+        String tokenExpires;
         String token = null;
         try {
             token = new RenewAccessToken().execute(url, id, secret).get();
@@ -60,13 +101,15 @@ public class AniListAPI {
         accessToken = token.split(":")[1].split(",")[0];
         accessToken = accessToken.substring(1, accessToken.length()-1);
 
-        tokenExpiration = token.split(":")[4];
-        tokenExpiration = tokenExpiration.substring(0, tokenExpiration.length()-1);
+        tokenExpires = token.split(":")[4];
+        tokenExpires = tokenExpires.substring(0, tokenExpires.length()-1);
+
+        myRef.child("accessToken").setValue(accessToken);
+        myRef.child("tokenExpires").setValue(Long.parseLong(tokenExpires));
     }
 
     /**
      * Performs background search for anime
-     *
      * @param url URL to search anime via AniList API
      * @param query User input search query
      * @return Anime search results as a string in JSON format
@@ -86,8 +129,6 @@ public class AniListAPI {
     /**
      * Makes a POST api call to request a new access token for authentication. It
      * performs this task in the background as an AsyncTask.
-     *
-     * @author Mikaila Smith
      */
     private class RenewAccessToken extends AsyncTask<String, Void, String> {
         /**
@@ -129,8 +170,6 @@ public class AniListAPI {
 
     /**
      * Makes a GET api call to perform a search result for matching anime.
-     *
-     * @author Mikaila Smith
      */
     private class GetSearchResult extends AsyncTask<String, Void, String> {
         /**
@@ -145,7 +184,7 @@ public class AniListAPI {
             String result = "";
 
             try {
-                URL url = new URL(params[0] + params[1] + "?access_token=" + accessToken);
+                URL url = new URL(params[0] + params[1] + "?access_token=" + clientInfo.getAccessToken());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");

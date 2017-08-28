@@ -1,4 +1,4 @@
-package com.example.mikaila.otakubinge;
+package com.mikaila.otakubinge;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

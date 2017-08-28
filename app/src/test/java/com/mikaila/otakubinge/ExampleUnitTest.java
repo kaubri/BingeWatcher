@@ -1,4 +1,4 @@
-package com.example.mikaila.otakubinge;
+package com.mikaila.otakubinge;
 
 import org.junit.Test;
 

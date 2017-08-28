@@ -1,6 +1,9 @@
-package com.example.mikaila.otakubinge;
+package com.mikaila.otakubinge;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.mikaila.otakubinge.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,8 +42,9 @@ public class SearchAnime {
     public List<Anime> search(String query) throws JSONException {
         // Generate a new access token is current token is no longer valid
         if (!isTokenValid()) {
-            aniList.generateAccessToken(context.getResources().getString(R.string.api_auth_url), context.getResources().getString(R.string.client_id),
-                    context.getResources().getString(R.string.client_secret));
+            aniList.generateAccessToken(context.getResources().getString(R.string.api_auth_url),
+                    aniList.clientInfo.getClientID(),
+                    aniList.clientInfo.getClientSecret());
         }
 
         String results = aniList.searchAnime(context.getResources().getString(R.string.api_search_url), query);
@@ -88,10 +92,10 @@ public class SearchAnime {
         long timeSeconds = TimeUnit.MILLISECONDS.toSeconds(timeMillis);
 
         // Checks if access token is currently present (on first call accessToken will equal null)
-        if (aniList.getAccessToken() != null) {
+        if (aniList.getAccessToken().isEmpty() || aniList.getAccessToken() != null) {
             // Token is valid (returns true) if current time in seconds is less than token
             // expiration time/date.
-            return (timeSeconds < Long.valueOf(aniList.getTokenExpires()));
+            return (timeSeconds < aniList.getTokenExpires());
         }
         else {
             return false;

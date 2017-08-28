@@ -6,4 +6,6 @@
     <dimen name="result_image">100dp</dimen>
     <dimen name="result_title_text_size">20sp</dimen>
     <dimen name="result_binge_time_and_date_text_size">15sp</dimen>
+    <dimen name="dev_info">12sp</dimen>
+    <dimen name="copyright_info">10sp</dimen>
 </resources>

@@ -1,6 +1,7 @@
-package com.example.mikaila.otakubinge;
+package com.mikaila.otakubinge;
 
 import android.net.ConnectivityManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,13 +9,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mikaila.otakubinge.R;
+
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
+/**
+ * The HelloWorld program implements an application that
+ * simply displays "Hello World!" to the standard output.
+ *
+ * @author  Mikaila Smith
+ * @version 1.0
+ * @since   2017-04-07
+ */
 public class SearchActivity extends AppCompatActivity {
 
     // Create api object to interact with AniList api
@@ -55,6 +70,11 @@ public class SearchActivity extends AppCompatActivity {
         inflater.inflate(R.menu.options_menu, menu);
         MenuItem item = menu.findItem(R.id.search);
 
+        // For use by searchView's listeners - to trigger visibility
+        final ImageView logo = (ImageView) findViewById(R.id.imgLogo);
+        final TextView devInfo = (TextView) findViewById(R.id.txtDevelopment);
+        final TextView copyrightInfo = (TextView) findViewById(R.id.txtCopyright);
+
         // Implement listener for user's search
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setIconifiedByDefault(false);
@@ -75,6 +95,10 @@ public class SearchActivity extends AppCompatActivity {
                             animeResultsList = searchAnime.search(query);
 
                             // Show search results
+                            logo.setVisibility(View.INVISIBLE);
+                            devInfo.setVisibility(View.INVISIBLE);
+                            copyrightInfo.setVisibility(View.INVISIBLE);
+
                             adapter = new SearchAdapter(SearchActivity.this, animeResultsList);
                             recyclerView.setAdapter(adapter);
                         }
@@ -91,6 +115,28 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+
+        // When user closes the search view, return to original view and erase search results
+        MenuItemCompat.setOnActionExpandListener(item, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                // Clear search results
+                recyclerView.removeAllViewsInLayout();
+                recyclerView.invalidate();
+
+                // Show main activity logo and dev/copyright info
+                logo.setVisibility(View.VISIBLE);
+                devInfo.setVisibility(View.VISIBLE);
+                copyrightInfo.setVisibility(View.VISIBLE);
+
+                return true;
             }
         });
 
