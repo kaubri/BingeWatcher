@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,16 +16,14 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mikaila.otakubinge.R;
-
 import org.json.JSONException;
-import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The HelloWorld program implements an application that
- * simply displays "Hello World!" to the standard output.
+ * <h1>SearchActivity</h1>
+ * Main activity when app is launched.
  *
  * @author  Mikaila Smith
  * @version 1.0
@@ -43,6 +42,10 @@ public class SearchActivity extends AppCompatActivity {
     // Search results - list of animes
     List<Anime> animeResultsList;
 
+    /**
+     * Executes when activity is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +63,20 @@ public class SearchActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        searchAnime = new SearchAnime(this);
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(SearchActivity.this.CONNECTIVITY_SERVICE);
+        if (cm.getActiveNetworkInfo() != null) { // If user has an internet connection
+            searchAnime = new SearchAnime(this);
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Internet connected required. Restart app after connection.", Toast.LENGTH_LONG).show();
+        }
     }
 
+    /**
+     * Executes once to create menu with searchView
+     * @param menu Menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Makes search option visible in action bar upon options menu creation
@@ -76,7 +90,7 @@ public class SearchActivity extends AppCompatActivity {
         final TextView copyrightInfo = (TextView) findViewById(R.id.txtCopyright);
 
         // Implement listener for user's search
-        SearchView searchView = (SearchView) item.getActionView();
+        final SearchView searchView = (SearchView) item.getActionView();
         searchView.setIconifiedByDefault(false);
         searchView.requestFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -91,6 +105,12 @@ public class SearchActivity extends AppCompatActivity {
                         ConnectivityManager cm = (ConnectivityManager) getSystemService(SearchActivity.this.CONNECTIVITY_SERVICE);
 
                         if (cm.getActiveNetworkInfo() != null) { // If user has an internet connection
+                            // searchAnime will be null if user did not start app with internet connection
+                            if (searchAnime == null) {
+                                Toast.makeText(getApplicationContext(), "Please restart application.", Toast.LENGTH_LONG).show();
+                                return false;
+                            }
+
                             // Search for anime based on query
                             animeResultsList = searchAnime.search(query);
 
@@ -99,14 +119,20 @@ public class SearchActivity extends AppCompatActivity {
                             devInfo.setVisibility(View.INVISIBLE);
                             copyrightInfo.setVisibility(View.INVISIBLE);
 
+                            if (animeResultsList.size() == 0) {
+                                Toast.makeText(getApplicationContext(), "No anime found named " + query, Toast.LENGTH_SHORT).show();
+                            }
+
                             adapter = new SearchAdapter(SearchActivity.this, animeResultsList);
                             recyclerView.setAdapter(adapter);
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Make sure you're connected to the internet!", Toast.LENGTH_LONG).show();
+                            revertSearchActivityLayout(logo,devInfo,copyrightInfo);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.e("SearchActivity","JSON exception while parsing API results");
                     }
                 }
                 return false;
@@ -114,6 +140,14 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                recyclerView.removeAllViewsInLayout();
+                recyclerView.invalidate();
+
+                ConnectivityManager cm = (ConnectivityManager) getSystemService(SearchActivity.this.CONNECTIVITY_SERVICE);
+                if (cm.getActiveNetworkInfo() == null) { // If user has an internet connection
+                    revertSearchActivityLayout(logo,devInfo,copyrightInfo);
+                }
+
                 return false;
             }
         });
@@ -122,24 +156,57 @@ public class SearchActivity extends AppCompatActivity {
         MenuItemCompat.setOnActionExpandListener(item, new MenuItemCompat.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
+                setSearchResultLayout(logo,devInfo,copyrightInfo);
+
+                // Anytime search is opened, clear and empty adapter to prevent layout issue
+                // where the logo and info and old search results overlap
+                searchView.setQuery("", true);
+                adapter = new SearchAdapter(SearchActivity.this, new ArrayList<Anime>());
+                recyclerView.setAdapter(adapter);
                 return true;
             }
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                // Clear search results
-                recyclerView.removeAllViewsInLayout();
-                recyclerView.invalidate();
-
-                // Show main activity logo and dev/copyright info
-                logo.setVisibility(View.VISIBLE);
-                devInfo.setVisibility(View.VISIBLE);
-                copyrightInfo.setVisibility(View.VISIBLE);
-
+                revertSearchActivityLayout(logo,devInfo,copyrightInfo);
                 return true;
             }
         });
 
         return true;
+    }
+
+    /**
+     * Clears recycler view and sets copyright/dev info and logo visible
+     * @param logo Image view
+     * @param dev Text view
+     * @param copyright Text view
+     */
+    private void revertSearchActivityLayout(ImageView logo, TextView dev, TextView copyright) {
+        // Clear search results
+        recyclerView.removeAllViewsInLayout();
+        recyclerView.invalidate();
+
+        // Show main activity logo and dev/copyright info
+        logo.setVisibility(View.VISIBLE);
+        dev.setVisibility(View.VISIBLE);
+        copyright.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Clears recycler view and sets copyright/dev info and logo invisible
+     * @param logo Image view
+     * @param dev Text view
+     * @param copyright Text view
+     */
+    private void setSearchResultLayout(ImageView logo, TextView dev, TextView copyright) {
+        // Clear search results
+        recyclerView.removeAllViewsInLayout();
+        recyclerView.invalidate();
+
+        // Show main activity logo and dev/copyright info
+        logo.setVisibility(View.INVISIBLE);
+        dev.setVisibility(View.INVISIBLE);
+        copyright.setVisibility(View.INVISIBLE);
     }
 }

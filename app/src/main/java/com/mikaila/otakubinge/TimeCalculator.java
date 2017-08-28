@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
- * <h1>BingeCalculator</h1>
+ * <h1>TimeCalculator</h1>
  * Calculates raw binge time and completion date
  *
  * @author  Donovan Wilder (dwilder1181)

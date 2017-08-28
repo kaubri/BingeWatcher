@@ -1,9 +1,6 @@
 package com.mikaila.otakubinge;
 
 import android.content.Context;
-import android.util.Log;
-
-import com.mikaila.otakubinge.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,19 +11,20 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * SearchAnime validates access token to make calls necessary to perform searches. Additionally,
+ * <h1>SearchAnime</h1>
+ * Validates access token to make calls necessary to perform searches. Additionally,
  * this class converts search results to a JSONArray for parsing.
  *
- * @author Mikaila Smith
+ * @author  Mikaila Smith
+ * @version 1.0
+ * @since   2017-05-16
  */
-
 public class SearchAnime {
     Context context;
     AniListAPI aniList = new AniListAPI();
 
     /**
      * SearchAnime Constructor
-     *
      * @param c Context of activity
      */
     public SearchAnime(Context c){
@@ -35,7 +33,6 @@ public class SearchAnime {
 
     /**
      * Performs search using user-provided query. Generates access token is necessary.
-     *
      * @param query User-provided search query
      * @returns A collection of Anime objects containing individual show search result details
      */
@@ -49,15 +46,18 @@ public class SearchAnime {
 
         String results = aniList.searchAnime(context.getResources().getString(R.string.api_search_url), query);
 
-        JSONArray results_array = new JSONArray(results);
-        List<Anime> animeCollection = getAnimeCollection(results_array);
+        List<Anime> animeCollection = new ArrayList<Anime>();
+        // If there were search results returned successfully
+        if (!results.contains("No Results")) {
+            JSONArray results_array = new JSONArray(results);
+            animeCollection = getAnimeCollection(results_array);
+        }
 
         return animeCollection;
     }
 
     /**
      * Convert JSONArray of search results to a collection of Anime objects.
-     *
      * @param array JSONArray of anime search results
      * @returns A collection of Anime objects containing individual show search result details
      * @throws JSONException
@@ -84,7 +84,6 @@ public class SearchAnime {
 
     /**
      * Check is current access token is still valid.
-     *
      * @returns true if token is valid; false if there is no token found or if the token has expired
      */
     public boolean isTokenValid() {

@@ -42,8 +42,27 @@ public class ClientInfo {
      */
     public String getClientSecret() { return clientSecret; }
 
+    /**
+     * Setter for access token
+     * @param accessToken Access token
+     */
     public void setAccessToken(String accessToken) { this.accessToken = accessToken; }
+
+    /**
+     * Setter for token expiration date/time
+     * @param tokenExpires Expiration time of token
+     */
     public void setTokenExpires(Long tokenExpires) { this.tokenExpires = tokenExpires; }
+
+    /**
+     * Setter for client ID
+     * @param clientID Client ID
+     */
     public void setClientID(String clientID) { this.clientID = clientID; }
+
+    /**
+     * Setter for client secret
+     * @param clientSecret Client secret
+     */
     public void setClientSecret(String clientSecret) { this.clientSecret = clientSecret; }
 }

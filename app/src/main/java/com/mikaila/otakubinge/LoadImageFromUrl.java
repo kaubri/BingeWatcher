@@ -9,9 +9,13 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
- * Created by Mikaila on 6/1/2017.
+ * <h1>LoadImageFromUrl</h1>
+ * Use AsyncTask to load bitmap image of anime
+ *
+ * @author  Mikaila Smith
+ * @version 1.0
+ * @since   2017-06-01
  */
-
 public class LoadImageFromUrl extends AsyncTask<String, Void, Bitmap> {
     ImageView imageView;
 

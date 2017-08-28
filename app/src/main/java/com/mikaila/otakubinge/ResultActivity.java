@@ -12,18 +12,24 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import com.mikaila.otakubinge.R;
+import android.widget.Toast;
 
 import java.util.Date;
 
+/**
+ * <h1>ResultActivity</h1>
+ * Result activity to show anime details and allow user to calculate binge time
+ *
+ * @author  Donovan Wilder (dwilder1181)
+ * @version 1.0
+ * @since   2017-06-05
+ */
 public class ResultActivity extends AppCompatActivity {
     private ImageView img;
     private TextView title;
     private TextView episodes;
     private TextView duration;
     private TextView description;
-
     private TextView rawBingeTimeTextView;
     private TextView completionDateTextView;
     private Spinner frequencySpinner;
@@ -33,6 +39,10 @@ public class ResultActivity extends AppCompatActivity {
     private int mDuration;
     private int mNumberOfEpisodes;
 
+    /**
+     * Executes when activity is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +64,13 @@ public class ResultActivity extends AppCompatActivity {
         description = (TextView) findViewById(R.id.result_synopsis_text_view);
         description.setMovementMethod(new ScrollingMovementMethod());
 
+        // Sets views on UI
         description.setText(mAnime.get_description());
         numOfEpisodesEditText = (EditText) findViewById(R.id.result_number_of_episodes_edit_text);
         numOfEpisodesEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                caluclateCompletionDate();
+                calculateCompletionDate();
                 return false;
             }
         });
@@ -71,7 +82,7 @@ public class ResultActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String frequency = (String) parent.getItemAtPosition(position);
                 ResultActivity.this.frequency = frequency;
-                caluclateCompletionDate();
+                calculateCompletionDate();
             }
 
             @Override
@@ -83,13 +94,21 @@ public class ResultActivity extends AppCompatActivity {
         rawBingeTimeTextView.setText(TimeCalculator.calculateRawBingeTime(mDuration*mNumberOfEpisodes));
         completionDateTextView = (TextView) findViewById(R.id.result_completion_date_text_view);
 
-
         new LoadImageFromUrl(img).execute(mAnime.get_image_url());
     }
 
-    public void caluclateCompletionDate() {
+    /**
+     * Calculates completion date and sets it text view
+     */
+    public void calculateCompletionDate() {
         mNumberOfEpisodes = Integer.valueOf(numOfEpisodesEditText.getText().toString());
-        Date completionDate= TimeCalculator.getFrequencyEndDate(ResultActivity.this.mAnime, new Date(), frequency, mNumberOfEpisodes);
-        completionDateTextView.setText(TimeCalculator.converDateToFormatedString(completionDate));
+
+        if (mNumberOfEpisodes > 0) {
+            Date completionDate = TimeCalculator.getFrequencyEndDate(ResultActivity.this.mAnime, new Date(), frequency, mNumberOfEpisodes);
+            completionDateTextView.setText(TimeCalculator.converDateToFormatedString(completionDate));
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Enter a value greater than 0.", Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -39,14 +39,14 @@
         android:id="@+id/txtEpisodes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/episodes"
-
-        app:layout_constraintBottom_toTopOf="@+id/txtDuration"
-        app:layout_constraintLeft_toLeftOf="@+id/result_title_text_view" />
+        app:layout_constraintLeft_toLeftOf="@+id/result_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/result_title_text_view"/>
 
     <TextView
         android:id="@+id/txtDuration"
@@ -54,9 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="0dp"
-
         android:text="@string/duration"
         app:layout_constraintBottom_toBottomOf="@+id/result_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/txtEpisodes"
         app:layout_constraintLeft_toLeftOf="@+id/txtEpisodes" />
 
 
