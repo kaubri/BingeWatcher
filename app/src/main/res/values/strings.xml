@@ -5,7 +5,7 @@
     <string name="duration">Duration: </string>
     <string name="episodes">Episodes: </string>
     <string name="total_binge_time">Total binge time: </string>
-    <string name="completion_date">Completion date: </string>
+    <string name="completion_date">Complete binge by: </string>
     <string name="calculate">Calculate</string>
     <string name="episode_a">episodes a</string>
     <string name="starting_date">Starting date: </string>

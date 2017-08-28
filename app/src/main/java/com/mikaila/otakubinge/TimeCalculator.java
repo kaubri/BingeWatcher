@@ -31,10 +31,20 @@ public class TimeCalculator {
 
         switch (frequency.toLowerCase()) {
             case "day":
-                startCalendar.add(Calendar.DAY_OF_YEAR, (int)Math.ceil(totalEpisodes/episodesPerFreq));
+                if (totalEpisodes%episodesPerFreq == 0) {
+                    startCalendar.add(Calendar.DAY_OF_YEAR, (int)Math.ceil(totalEpisodes/episodesPerFreq) - 1);
+                }
+                else {
+                    startCalendar.add(Calendar.DAY_OF_YEAR, (int)Math.ceil(totalEpisodes/episodesPerFreq));
+                }
                 break;
             case "week":
-                startCalendar.add(Calendar.WEEK_OF_MONTH, (int)Math.ceil(totalEpisodes/episodesPerFreq));
+                if (totalEpisodes%episodesPerFreq == 0) {
+                    startCalendar.add(Calendar.WEEK_OF_MONTH, (int) Math.ceil(totalEpisodes / episodesPerFreq));
+                }
+                else {
+                    startCalendar.add(Calendar.WEEK_OF_MONTH, (int) Math.ceil(totalEpisodes / episodesPerFreq) + 1);
+                }
                 break;
             default:
                 return null;

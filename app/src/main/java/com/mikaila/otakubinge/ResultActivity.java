@@ -41,7 +41,7 @@ public class ResultActivity extends AppCompatActivity {
 
     /**
      * Executes when activity is created
-     * @param savedInstanceState
+     * @param savedInstanceState Saved instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +52,17 @@ public class ResultActivity extends AppCompatActivity {
         mAnime = (Anime) intent.getSerializableExtra("anime");
 
         img = (ImageView) findViewById(R.id.result_image_view);
+
         title = (TextView) findViewById(R.id.result_title_text_view);
         title.setText(mAnime.get_title_english());
+
         episodes = (TextView) findViewById(R.id.results_episodes_text_view);
         episodes.setText(mAnime.get_total_episodes());
+
+        String animeDuration = mAnime.get_duration() + " mins";
         duration = (TextView) findViewById(R.id.result_runtime_text_view);
-        duration.setText(mAnime.get_duration() + " mins");
+        duration.setText(animeDuration);
+
         mDuration = Integer.valueOf(mAnime.get_duration());
         mNumberOfEpisodes = Integer.valueOf(mAnime.get_total_episodes());
 
@@ -66,6 +71,7 @@ public class ResultActivity extends AppCompatActivity {
 
         // Sets views on UI
         description.setText(mAnime.get_description());
+
         numOfEpisodesEditText = (EditText) findViewById(R.id.result_number_of_episodes_edit_text);
         numOfEpisodesEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -74,14 +80,14 @@ public class ResultActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         frequencySpinner = (Spinner) findViewById(R.id.result_frequency_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ResultActivity.this, R.array.time_frequency, android.R.layout.simple_spinner_dropdown_item);
         frequencySpinner.setAdapter(adapter);
         frequencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String frequency = (String) parent.getItemAtPosition(position);
-                ResultActivity.this.frequency = frequency;
+                ResultActivity.this.frequency = (String) parent.getItemAtPosition(position);
                 calculateCompletionDate();
             }
 
@@ -92,7 +98,6 @@ public class ResultActivity extends AppCompatActivity {
         completionDateTextView = (TextView) findViewById(R.id.result_completion_date_text_view);
         rawBingeTimeTextView = (TextView) findViewById(R.id.result_raw_binge_time_text_view);
         rawBingeTimeTextView.setText(TimeCalculator.calculateRawBingeTime(mDuration*mNumberOfEpisodes));
-        completionDateTextView = (TextView) findViewById(R.id.result_completion_date_text_view);
 
         new LoadImageFromUrl(img).execute(mAnime.get_image_url());
     }
