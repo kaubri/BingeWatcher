@@ -1,1 +1,11 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+
+rootProject.name = "BingeWatcher"
 include ':app'
